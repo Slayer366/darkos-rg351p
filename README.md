@@ -3,4 +3,4 @@
 
 This version of dArkOS for the RG351P and RG351M uses [dArkOS4Clone](https://github.com/lcdyk0517/arkos4clone) as its base.
 
-See the [dArkOS Wiki](https://github.com/christianhaitian/dArkOS/wiki) for officially supported devices.
+See Christian's [dArkOS Wiki](https://github.com/christianhaitian/dArkOS/wiki) for officially supported devices.
