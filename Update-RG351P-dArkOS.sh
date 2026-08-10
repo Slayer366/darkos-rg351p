@@ -25,10 +25,10 @@ tail -f $LOG_FILE >> /dev/tty1 &
 if [ ! -f "/home/ark/.config/.update08052026" ]; then
 
   printf "\nInitial update test \n" | tee -a "$LOG_FILE"
-#  sudo wget --no-check-certificate https://github.com/slayer366/darkos-rg351p/raw/main/08052026/arkosupdate08052026.zip -O /home/ark/arkosupdate08052026.zip -a "$LOG_FILE" || rm -f /home/ark/arkosupdate08052026.zip | tee -a "$LOG_FILE"
-#  if [ -f "/home/ark/arkosupdate08052026.zip" ]; then
-#    sudo unzip -X -o /home/ark/arkosupdate08052026.zip -d / | tee -a "$LOG_FILE"
-#    sudo rm -v /home/ark/arkosupdate08052026.zip | tee -a "$LOG_FILE"
+#  sudo wget --no-check-certificate https://github.com/slayer366/darkos-rg351p/raw/main/08052026/darkosupdate08052026.zip -O /home/ark/darkosupdate08052026.zip -a "$LOG_FILE" || rm -f /home/ark/darkosupdate08052026.zip | tee -a "$LOG_FILE"
+#  if [ -f "/home/ark/darkosupdate08052026.zip" ]; then
+#    sudo unzip -X -o /home/ark/darkosupdate08052026.zip -d / | tee -a "$LOG_FILE"
+#    sudo rm -v /home/ark/darkosupdate08052026.zip | tee -a "$LOG_FILE"
 #  else
 #    printf "\nThe update couldn't complete because the package did not download correctly.\nPlease retry the update again." | tee -a "$LOG_FILE"
 #    sleep 3
@@ -69,10 +69,10 @@ if [ ! -f "/home/ark/.config/.update08102026" ]; then
 
   printf "\nFix duckstation-standalone \n" | tee -a "$LOG_FILE"
   sudo rm -rf /dev/shm/*
-  sudo wget --no-check-certificate https://github.com/slayer366/darkos-rg351p/raw/main/08102026/arkosupdate08102026.zip -O /home/ark/arkosupdate08102026.zip -a "$LOG_FILE" || rm -f /home/ark/arkosupdate08102026.zip | tee -a "$LOG_FILE"
-  if [ -f "/home/ark/arkosupdate08102026.zip" ]; then
-    sudo unzip -X -o /home/ark/arkosupdate08102026.zip -d / | tee -a "$LOG_FILE"
-    sudo rm -v /home/ark/arkosupdate08102026.zip | tee -a "$LOG_FILE"
+  sudo wget --no-check-certificate https://github.com/slayer366/darkos-rg351p/raw/main/08102026/darkosupdate08102026.zip -O /home/ark/darkosupdate08102026.zip -a "$LOG_FILE" || rm -f /home/ark/darkosupdate08102026.zip | tee -a "$LOG_FILE"
+  if [ -f "/home/ark/darkosupdate08102026.zip" ]; then
+    sudo unzip -X -o /home/ark/darkosupdate08102026.zip -d / | tee -a "$LOG_FILE"
+    sudo rm -v /home/ark/darkosupdate08102026.zip | tee -a "$LOG_FILE"
   else
     printf "\nThe update couldn't complete because the package did not download correctly.\nPlease retry the update again." | tee -a "$LOG_FILE"
     sleep 3
