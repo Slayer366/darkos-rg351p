@@ -1,7 +1,7 @@
 #!/bin/bash
 clear
 
-UPDATE_DATE="08102026"
+UPDATE_DATE="08172026"
 LOG_FILE="/home/ark/update$UPDATE_DATE.log"
 UPDATE_DONE="/home/ark/.config/.update$UPDATE_DATE"
 
@@ -114,6 +114,59 @@ if [ ! -f "/home/ark/.config/.update08102026" ]; then
 fi
 
 
+if [ ! -f "/home/ark/.config/.update08172026" ]; then
+
+  printf "\nFix standalone-2022 emulator for atomiswave and naomi \n" | tee -a "$LOG_FILE"
+  sudo rm -rf /dev/shm/*
+  sudo wget --no-check-certificate https://github.com/slayer366/darkos-rg351p/raw/main/08172026/darkosupdate08172026.zip -O /home/ark/darkosupdate08172026.zip -a "$LOG_FILE" || rm -f /home/ark/darkosupdate08172026.zip | tee -a "$LOG_FILE"
+  if [ -f "/home/ark/darkosupdate08172026.zip" ]; then
+    sudo unzip -X -o /home/ark/darkosupdate08172026.zip -d / | tee -a "$LOG_FILE"
+    sudo rm -v /home/ark/darkosupdate08172026.zip | tee -a "$LOG_FILE"
+  else
+    printf "\nThe update couldn't complete because the package did not download correctly.\nPlease retry the update again." | tee -a "$LOG_FILE"
+    sleep 3
+    echo $c_brightness > /sys/devices/platform/backlight/backlight/backlight/brightness
+    exit 1
+  fi
+
+
+      sudo chown -R ark:ark /opt/
+
+    printf "\nMake sure permissions for the ark home directory are set to 755\n" | tee -a "$LOG_FILE"
+      sudo chown -R ark:ark /home/ark
+      sudo chmod -R 755 /home/ark
+
+    printf "\nEnsure proper permissions are set for naomi.sh and atomiswave.sh \n" | tee -a "$LOG_FILE"
+      sudo chmod 777 /usr/local/bin/atomiswave.sh
+      sudo chmod 777 /usr/local/bin/naomi.sh
+
+    printf "\nMove ES backups into subfolder \n" | tee -a "$LOG_FILE"
+      sudo mkdir -p /etc/emulationstation/bak
+      sudo mv -f -v /etc/emulationstation/es_dc_backup.txt /etc/emulationstation/bak/es_dreamcast.bak
+      sudo mv -f -v /etc/emulationstation/es_saturn_bak.txt /etc/emulationstation/bak/es_saturn.bak
+      sudo mv -f -v /etc/emulationstation/es_naomi_bak.txt /etc/emulationstation/bak/es_naomi.bak
+      sudo mv -f -v /etc/emulationstation/es_systems.ark /etc/emulationstation/bak/es_systems.ark
+      sudo mv -f -v /etc/emulationstation/es_systems.old /etc/emulationstation/bak/es_systems.old
+      sudo mv -f -v /etc/emulationstation/es_systems.cfg.dual /etc/emulationstation/bak/es_systems.cfg.dual
+
+      sudo chmod 666 /etc/emulationstation/bak/*
+
+    printf "\n Set permissions on es_systems.cfg in case they were altered \n" | tee -a "$LOG_FILE"
+      sudo chmod ugo+rwx /etc/emulationstation/es_systems.cfg
+
+    printf "\nEnsure 64bit and 32bit SDL2 are still properly linked\n" | tee -a "$LOG_FILE"
+      sudo ln -sfv /usr/lib/aarch64-linux-gnu/libSDL2.so /usr/lib/aarch64-linux-gnu/libSDL2-2.0.so.0 | tee -a "$LOG_FILE"
+      sudo ln -sfv /usr/lib/aarch64-linux-gnu/libSDL2-2.0.so.0 /usr/lib/aarch64-linux-gnu/libSDL2-2.0.so | tee -a "$LOG_FILE"
+      sudo ln -sfv /usr/lib/aarch64-linux-gnu/libSDL2-2.0.so.0.3200.10 /usr/lib/aarch64-linux-gnu/libSDL2.so | tee -a "$LOG_FILE"
+      sudo ln -sfv /usr/lib/arm-linux-gnueabihf/libSDL2.so /usr/lib/arm-linux-gnueabihf/libSDL2-2.0.so.0 | tee -a "$LOG_FILE"
+      sudo ln -sfv /usr/lib/arm-linux-gnueabihf/libSDL2-2.0.so.0 /usr/lib/arm-linux-gnueabihf/libSDL2-2.0.so | tee -a "$LOG_FILE"
+      sudo ln -sfv /usr/lib/arm-linux-gnueabihf/libSDL2-2.0.so.0.3200.10 /usr/lib/arm-linux-gnueabihf/libSDL2.so | tee -a "$LOG_FILE"
+
+  touch "/home/ark/.config/.update08172026"
+
+fi
+
+
 if [ ! -f "$UPDATE_DONE-1" ]; then
 
 
@@ -131,6 +184,7 @@ if [ ! -f "$UPDATE_DONE-1" ]; then
 
   touch "$UPDATE_DONE"
   sudo chmod 766 "/home/ark/.config/.update*"
+  sudo rm -rf /dev/shm/*
   rm -v -- "$0" | tee -a "$LOG_FILE"
   printf "\033c" >> /dev/tty1
   msgbox "Updates have been completed.  System will now restart after you hit the A button to continue.  If the system doesn't restart after pressing A, just restart the system manually."
