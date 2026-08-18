@@ -11,3 +11,6 @@
 ## August 17, 2026
 * Fix standalone-2022 emulator for atomiswave
 * Fix standalone-2022 emulator for naomi
+
+## August 18, 2026
+* Fix standalone mednafen controls for OSH controller
