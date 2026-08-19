@@ -14,3 +14,6 @@
 
 ## August 18, 2026
 * Fix standalone mednafen controls for OSH controller
+
+## August 19, 2026
+* Fix standalone mupen64plus emulator for n64
