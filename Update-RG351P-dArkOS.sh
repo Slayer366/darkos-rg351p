@@ -1,7 +1,7 @@
 #!/bin/bash
 clear
 
-UPDATE_DATE="08182026"
+UPDATE_DATE="08192026"
 LOG_FILE="/home/ark/update$UPDATE_DATE.log"
 UPDATE_DONE="/home/ark/.config/.update$UPDATE_DATE"
 
@@ -67,7 +67,7 @@ fi
 
 if [ ! -f "/home/ark/.config/.update08102026" ]; then
 
-  printf "\nFix duckstation-standalone \n" | tee -a "$LOG_FILE"
+  printf "\nFix duckstation-standalone for psx \n" | tee -a "$LOG_FILE"
   sudo rm -rf /dev/shm/*
   sudo wget --no-check-certificate https://github.com/slayer366/darkos-rg351p/raw/main/08102026/darkosupdate08102026.zip -O /home/ark/darkosupdate08102026.zip -a "$LOG_FILE" || rm -f /home/ark/darkosupdate08102026.zip | tee -a "$LOG_FILE"
   if [ -f "/home/ark/darkosupdate08102026.zip" ]; then
@@ -202,6 +202,65 @@ if [ ! -f "/home/ark/.config/.update08182026" ]; then
       sudo ln -sfv /usr/lib/arm-linux-gnueabihf/libSDL2-2.0.so.0.3200.10 /usr/lib/arm-linux-gnueabihf/libSDL2.so | tee -a "$LOG_FILE"
 
   touch "/home/ark/.config/.update08182026"
+
+fi
+
+
+if [ ! -f "/home/ark/.config/.update08192026" ]; then
+
+  printf "\nFix standalone mupen64plus for n64 \n" | tee -a "$LOG_FILE"
+  sudo rm -rf /dev/shm/*
+  sudo wget --no-check-certificate https://github.com/slayer366/darkos-rg351p/raw/main/08192026/darkosupdate08192026.zip -O /home/ark/darkosupdate08192026.zip -a "$LOG_FILE" || rm -f /home/ark/darkosupdate08192026.zip | tee -a "$LOG_FILE"
+  if [ -f "/home/ark/darkosupdate08192026.zip" ]; then
+    sudo unzip -X -o /home/ark/darkosupdate08192026.zip -d / | tee -a "$LOG_FILE"
+    sudo rm -v /home/ark/darkosupdate08192026.zip | tee -a "$LOG_FILE"
+  else
+    printf "\nThe update couldn't complete because the package did not download correctly.\nPlease retry the update again." | tee -a "$LOG_FILE"
+    sleep 3
+    echo $c_brightness > /sys/devices/platform/backlight/backlight/backlight/brightness
+    exit 1
+  fi
+
+
+      sudo chown -R ark:ark /opt/
+
+    printf "\nMake sure permissions for the ark home directory are set to 755\n" | tee -a "$LOG_FILE"
+      sudo chown -R ark:ark /home/ark
+      sudo chmod -R 755 /home/ark
+
+    printf "\nInstall libminizip for standalone mupen64plus \n" | tee -a "$LOG_FILE"
+      sudo apt install -y libminizip-dev 
+
+    printf "\nEnsure proper permissions are set for standalone mupen64plus \n" | tee -a "$LOG_FILE"
+      sudo chmod 777 /usr/local/bin/n64.sh
+      sudo chmod ugo+rw -R /opt/mupen64plus/*
+      sudo chmod 777 /opt/mupen64plus/mupen64plus
+      sudo chmod 755 /opt/mupen64plus/api
+      sudo chmod 755 /opt/mupen64plus/doc
+      sudo chmod 755 /opt/mupen64plus/icons
+      sudo chmod 755 /opt/mupen64plus/icons/48x48
+      sudo chmod 755 /opt/mupen64plus/icons/48x48/apps
+      sudo chmod 755 /opt/mupen64plus/icons/scalable
+      sudo chmod 755 /opt/mupen64plus/icons/scalable/apps
+      sudo chmod 755 /opt/mupen64plus/man6
+      sudo chmod 755 /opt/mupen64plus
+      sudo chmod 666 /opt/mupen64plus/*.desktop
+      sudo chmod 775 /opt/mupen64plus/*.ini
+      sudo chmod 666 /opt/mupen64plus/*.ttf
+      sudo chmod 666 /opt/mupen64plus/*.txt
+      sudo chmod 666 /opt/mupen64plus/*.v64
+      sudo chmod 775 /opt/mupen64plus/*.so*
+      sudo cp -f -v /opt/mupen64plus/Default-InputAutoCfg.ini /opt/mupen64plus/InputAutoCfg.ini.bak
+
+    printf "\nEnsure 64bit and 32bit SDL2 are still properly linked\n" | tee -a "$LOG_FILE"
+      sudo ln -sfv /usr/lib/aarch64-linux-gnu/libSDL2.so /usr/lib/aarch64-linux-gnu/libSDL2-2.0.so.0 | tee -a "$LOG_FILE"
+      sudo ln -sfv /usr/lib/aarch64-linux-gnu/libSDL2-2.0.so.0 /usr/lib/aarch64-linux-gnu/libSDL2-2.0.so | tee -a "$LOG_FILE"
+      sudo ln -sfv /usr/lib/aarch64-linux-gnu/libSDL2-2.0.so.0.3200.10 /usr/lib/aarch64-linux-gnu/libSDL2.so | tee -a "$LOG_FILE"
+      sudo ln -sfv /usr/lib/arm-linux-gnueabihf/libSDL2.so /usr/lib/arm-linux-gnueabihf/libSDL2-2.0.so.0 | tee -a "$LOG_FILE"
+      sudo ln -sfv /usr/lib/arm-linux-gnueabihf/libSDL2-2.0.so.0 /usr/lib/arm-linux-gnueabihf/libSDL2-2.0.so | tee -a "$LOG_FILE"
+      sudo ln -sfv /usr/lib/arm-linux-gnueabihf/libSDL2-2.0.so.0.3200.10 /usr/lib/arm-linux-gnueabihf/libSDL2.so | tee -a "$LOG_FILE"
+
+  touch "/home/ark/.config/.update08192026"
 
 fi
 
