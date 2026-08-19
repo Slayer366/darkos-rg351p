@@ -229,6 +229,7 @@ if [ ! -f "/home/ark/.config/.update08192026" ]; then
       sudo chmod -R 755 /home/ark
 
     printf "\nInstall libminizip for standalone mupen64plus \n" | tee -a "$LOG_FILE"
+      sudo apt update
       sudo apt install -y libminizip-dev 
 
     printf "\nEnsure proper permissions are set for standalone mupen64plus \n" | tee -a "$LOG_FILE"
