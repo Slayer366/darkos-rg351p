@@ -17,3 +17,6 @@
 
 ## August 19, 2026
 * Fix standalone mupen64plus emulator for n64
+
+## September 21, 2026
+* Update LinApple with added OSK
